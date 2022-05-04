@@ -172,4 +172,5 @@ fn main() {
             break;
         }
     }
+    loop {}
 }
