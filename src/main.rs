@@ -59,7 +59,7 @@ impl Board {
     }
     fn guess(&mut self) -> bool {
         let mut guess = String::new();
-        println!("{}", "\nenter guess:".cyan().bold().on_white());
+        println!("{}", "\nenter guess:".blue().bold().on_white());
         io::stdin()
             .read_line(&mut guess)
             .expect("\nFailed to read line");
@@ -103,51 +103,65 @@ impl Board {
 
 fn main() {
     let words = vec![
-        Word {
-            data: "cat".to_string(),
-            word_type: Types::Noun,
-        },
-        Word {
-            data: "dog".to_string(),
-            word_type: Types::Noun,
-        },
-        Word {
-            data: "fish".to_string(),
-            word_type: Types::Noun,
-        },
-        Word {
-            data: "walk".to_string(),
-            word_type: Types::Verb,
-        },
-        Word {
-            data: "run".to_string(),
-            word_type: Types::Verb,
-        },
-        Word {
-            data: "jump".to_string(),
-            word_type: Types::Verb,
-        },
-        Word {
-            data: "happy".to_string(),
-            word_type: Types::Adj,
-        },
-        Word {
-            data: "sad".to_string(),
-            word_type: Types::Adj,
-        },
-        Word {
-            data: "angry".to_string(),
-            word_type: Types::Adj,
-        },
-        Word {
-            data: "scary".to_string(),
-            word_type: Types::Adj,
-        },
+        ("banana", "noun"),
+        ("apple", "noun"),
+        ("orange", "noun"),
+        ("grape", "noun"),
+        ("pear", "noun"),
+        ("watermelon", "noun"),
+        ("strawberry", "noun"),
+        ("kiwi", "noun"),
+        ("peach", "noun"),
+        ("pineapple", "noun"),
+        ("coconut", "noun"),
+        ("run", "verb"),
+        ("walk", "verb"),
+        ("fly", "verb"),
+        ("swim", "verb"),
+        ("sing", "verb"),
+        ("dance", "verb"),
+        ("laugh", "verb"),
+        ("cry", "verb"),
+        ("eat", "verb"),
+        ("drink", "verb"),
+        ("sleep", "verb"),
+        ("play", "verb"),
+        ("watch", "verb"),
+        ("read", "verb"),
+        ("write", "verb"),
+        ("red", "adj"),
+        ("blue", "adj"),
+        ("green", "adj"),
+        ("yellow", "adj"),
+        ("orange", "adj"),
+        ("purple", "adj"),
+        ("pink", "adj"),
+        ("brown", "adj"),
+        ("black", "adj"),
+        ("white", "adj"),
+        ("gray", "adj"),
+        ("pale", "adj"),
+        ("dark", "adj"),
+        ("light", "adj"),
+        ("warm", "adj"),
+        ("cold", "adj"),
+        ("hot", "adj"),
+        ("dry", "adj"),
+        ("wet", "adj"),
+        ("sweet", "adj"),
     ];
-    let word = words[rand::thread_rng().gen_range(0, words.len() - 1)];
+    let len_words = words.len();
+    let &word = words
+        .get(rand::thread_rng().gen_range(0..len_words))
+        .unwrap();
     let mut board = Board::new(Word {
-        data: word,
-        word_type: Types::Noun,
+        data: word.0.to_string(),
+        word_type: match word.1.to_lowercase().as_str() {
+            "noun" => Types::Noun,
+            "verb" => Types::Verb,
+            "adj" => Types::Adj,
+            _ => Types::Noun,
+        },
     });
     loop {
         board.draw();
